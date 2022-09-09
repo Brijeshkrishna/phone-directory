@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Phone Directory</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+    <script src='/static/main.js'></script>
+</head>
+
+<body>
+
+
+    <center>
+        <h1>Phone directory</h1>
+        <form method='post' action=' {{ url_for("addPhone")}}'>
+            <input type="text" name="phone_number" placeholder="Enter phone number" required />
+            <input type="submit" value="submit">
+        </form>
+        <br><br>
+        <button>Refresh</button>
+        <br><br><br>
+        <!-- viewport -->
+        <table id="list_phone">
+            <tr>
+                <th>Name</th>
+                <th>Country Code</th>
+                <th>Phone</th>
+            </tr>
+        </table>
+
+
+        <!-- viewport -->
+
+    </center>
+
+
+</body>
+
+</html>
