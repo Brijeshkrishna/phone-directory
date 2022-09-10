@@ -1,8 +1,15 @@
-table,th,td {
+table,
+th,
+td {
   border: 1px dotted black;
-    text-align: center;
+  text-align: center;
 }
 
-table{
-    width:60%;
+table {
+  width: 60%;
+}
+
+.main_form {
+  display: block ruby;
+  margin-right: 25px;
 }
