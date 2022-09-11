@@ -28,7 +28,7 @@ def addPhone():
 def getPhones():
     rv = []
     for i in db.get_users():
-        rv.append({"name": i[1], "country_code": i[2], "phone_num": i[3]})
+        rv.append({"id":i[0],"name": i[1], "country_code": i[2], "phone_num": i[3]})
     resp = make_response({"data": rv})
     resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.headers["mode"] = "cors"

@@ -1,8 +1,11 @@
 table,
 th,
 td {
-  border: 1px dotted black;
+  border: 1px solid black;
   text-align: center;
+}
+html{
+  height: 140%;
 }
 
 table {
@@ -12,4 +15,11 @@ table {
 .main_form {
   display: block ruby;
   margin-right: 25px;
+}
+input:invalid {
+  border: red solid 2px;
+}
+
+input:valid {
+  border: green solid 2px;
 }
