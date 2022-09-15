@@ -1,7 +1,8 @@
 
-const na_re = new RegExp('[a-zA-Z]+', 'g');
-const ph_re = new RegExp('[0-9]{10}', 'g');
-const cc_re = new RegExp('[0-9]{2}', 'g');
+
+const na_re = new RegExp('^[a-zA-Z]+$');
+const ph_re = new RegExp('^[0-9]{10}$');
+const cc_re = new RegExp('^[0-9]{2}$');
 
 
 async function request() {
@@ -59,6 +60,58 @@ function refresh() {
 }
 fill();
 
+function change_name(){
+  let name = document.getElementById("name");
+  if (! na_re.test(name.value) ){
+    name.style.border = "red solid 2px"
+    
+  }
+  else{
+    name.style.border ="green solid 2px";
+    check_3=check_3+1;
+    btnsubmit.disabled = 1;
+
+
+  }
+ 
+ 
+}
+
+function change_country(){
+  let country = document.getElementById("country_code");
+  if (! cc_re.test(country.value) ){
+    country.style.border = "red solid 2px"
+    check_3=check_3-1;
+
+  }
+  else{
+    country.style.border ="green solid 2px";
+    check_3=check_3+1;
+    btnsubmit.disabled = 1;
+
+  }
+
+  
+}
+
+function change_phone(){
+  let phone = document.getElementById("phone_number");
+  if (! ph_re.test(phone.value) ){
+    phone.style.border = "red solid 2px"
+    check_3=check_3-1;
+    btnsubmit.disabled = 1;
+
+
+  }
+  else{
+    phone.style.border ="green solid 2px";
+    check_3=check_3+1;
+
+  }
+
+
+}
+
 async function addPhone() {
 
   let name = document.getElementById("name");
@@ -67,7 +120,6 @@ async function addPhone() {
   
   if (! na_re.test(name.value) ){
     name.style.border = "red solid 2px"
-
     return;
   }
   name.style.border ="green solid 2px";
