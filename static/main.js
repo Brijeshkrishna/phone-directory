@@ -1,17 +1,16 @@
+const na_re = new RegExp("^[a-zA-Z]+$");
+const ph_re = new RegExp("^[0-9]{10}$");
+const em_re = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$");
 
-
-const na_re = new RegExp('^[a-zA-Z]+$');
-const ph_re = new RegExp('^[0-9]{10}$');
-const cc_re = new RegExp('^[0-9]{2}$');
-
+fill();
 
 async function request() {
   const response = await fetch("/api/getPhones");
   return await response.json();
 }
 
-async function upload_phones(name, cc, ph) {
-  const response = await fetch(`/addPhone/?na=${name}&cc=${cc}&ph=${ph}`, {
+async function upload_phone(name, ph, email) {
+  const response = await fetch(`/addPhone/?na=${name}&ph=${ph}&em=${email}`, {
     method: "POST",
   });
   return await response.status;
@@ -20,15 +19,14 @@ async function upload_phones(name, cc, ph) {
 function appendChildtohtml(data) {
   let game_list = document.getElementById("list_phone");
 
-  console.log(data);
   for (let i in data) {
     let alist = document.createElement("tr");
     alist.setAttribute("class", "ltr");
     alist.innerHTML = `<tr> \
         <td>${data[i].id}</td> \
         <td>${data[i].name}</td> \
-        <td>${data[i].country_code}</td> \
-        <td>${data[i].phone_num}</td> \
+        <td>${data[i].phone}</td> \
+        <td>${data[i].email}</td> \
     </tr>`;
     game_list.appendChild(alist);
   }
@@ -47,105 +45,60 @@ function clear_fill() {
     "<tr> \
       <th>Id</th> \
       <th>Name</th> \
-      <th>Country Code</th> \
       <th>Phone</th> \
-    </tr>" ;
-    console.log(game_list.innerHTML);
-
+      <th>Email</th> \
+    </tr>";
 }
 
 function refresh() {
   clear_fill();
   fill();
 }
-fill();
 
-function change_name(){
-  let name = document.getElementById("name");
-  if (! na_re.test(name.value) ){
-    name.style.border = "red solid 2px"
-    
+function on_change_name() {
+  let name_temp = document.getElementById("name");
+  if (na_re.test(name_temp.value)) {
+    name_temp.style.border = "green solid 2px";
+    return 1;
   }
-  else{
-    name.style.border ="green solid 2px";
-    check_3=check_3+1;
-    btnsubmit.disabled = 1;
-
-
-  }
- 
- 
+  name_temp.style.border = "red solid 2px";
+  return 1;
 }
 
-function change_country(){
-  let country = document.getElementById("country_code");
-  if (! cc_re.test(country.value) ){
-    country.style.border = "red solid 2px"
-    check_3=check_3-1;
-
-  }
-  else{
-    country.style.border ="green solid 2px";
-    check_3=check_3+1;
-    btnsubmit.disabled = 1;
-
+function on_change_phone() {
+  let phone_temp = document.getElementById("phone");
+  if (ph_re.test(phone_temp.value)) {
+    phone_temp.style.border = "green solid 2px";
+    return 1;
   }
 
-  
+  phone_temp.style.border = "red solid 2px";
+  return 0;
 }
 
-function change_phone(){
-  let phone = document.getElementById("phone_number");
-  if (! ph_re.test(phone.value) ){
-    phone.style.border = "red solid 2px"
-    check_3=check_3-1;
-    btnsubmit.disabled = 1;
-
-
+function on_change_email() {
+  let email_temp = document.getElementById("email");
+  if (em_re.test(email_temp.value)) {
+    email_temp.style.border = "green solid 2px";
+    return 1;
   }
-  else{
-    phone.style.border ="green solid 2px";
-    check_3=check_3+1;
-
-  }
-
-
+  email_temp.style.border = "red solid 2px";
+  return 0;
 }
 
 async function addPhone() {
-
   let name = document.getElementById("name");
-  let country = document.getElementById("country_code");
-  let phone = document.getElementById("phone_number");
-  
-  if (! na_re.test(name.value) ){
-    name.style.border = "red solid 2px"
-    return;
+  let phone = document.getElementById("phone");
+  let email = document.getElementById("email");
+
+  if (!on_change_name() || !on_change_phone() || !on_change_email()) {
+    return 0;
   }
-  name.style.border ="green solid 2px";
- 
-  if (! cc_re.test(country.value) ){
-    country.style.border = "red solid 2px"
-    return;
-    
-  }
-  country.style.border ="green solid 2px";
 
-  if (! ph_re.test(phone.value) ){
-    phone.style.border = "red solid 2px"
-    return;
-    
-  }
-  phone.style.border ="green solid 2px";
+  upload_phone(name.value, phone.value, email.value).then((data) => {});
 
-  upload_phones(name.value, country.value, phone.value).then((data) => {
-
-  });
-
-  name.value ="" ;
-  country.value="";
-  phone.value="";
   alert("successfully submitted");
-
-
+  name.value = "";
+  email.value = "";
+  phone.value = "";
 }

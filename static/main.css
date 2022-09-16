@@ -1,10 +1,14 @@
+html {
+  background-color: beige;
+}
+
 table,
 th,
 td {
   border: 1px solid black;
   text-align: center;
 }
-html{
+html {
   height: 140%;
 }
 
