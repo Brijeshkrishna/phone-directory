@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Update or delete</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<style>
+    html {
+        background-color: beige;
+      }
+      input:invalid {
+        border: red solid 2px;
+      }
+      input:valid {
+        border: green solid 2px;
+      }
+      table {
+        width: 60%;
+      }
+      table,
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+}
+      
+</style>
+<script type="text/javascript">
+    const na_re = new RegExp("^[a-zA-Z]+$");
+    const ph_re = new RegExp("^[0-9]{10}$");
+    const em_re   = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$");
+    var ph_old_ = "";
+    
+async function request_update(na,ph_new,em,ph_old) {
+    const response = await fetch(`/api/update/?na=${na}&ph=${ph_new}&em=${em}&with=${ph_old}`, {
+        method: "POST",
+    });
+      return await response.status;
+}
+
+async function request_delete(ph) {
+    const response = await fetch(`/api/delete/?with=${ph}`, {
+        method: "POST",
+    });
+      return await response.status;
+}
+
+    async function request(ph) {
+        const response = await fetch(`/api/search?ph=${ph}`);
+        return await response.json();
+    }
+    function on_change_name() {
+        let name_temp = document.getElementById("name");
+        if (na_re.test(name_temp.value)) {
+          name_temp.style.border = "green solid 2px";
+          return 1;
+        }
+        name_temp.style.border = "red solid 2px";
+        return 1;
+      }
+      
+      function on_change_phone() {
+        let phone_temp = document.getElementById("phone");
+        if (ph_re.test(phone_temp.value)) {
+          phone_temp.style.border = "green solid 2px";
+          return 1;
+        }
+      
+        phone_temp.style.border = "red solid 2px";
+        return 0;
+      }
+      
+      function on_change_email() {
+        let email_temp = document.getElementById("email");
+        if (em_re.test(email_temp.value)) {
+          email_temp.style.border = "green solid 2px";
+          return 1;
+        }
+        email_temp.style.border = "red solid 2px";
+        return 0;
+      }
+
+    function fill(data) {
+        let game_list = document.getElementById("ta_hold");
+        game_list.innerHTML = "";
+        if( data.length  == 0){
+            game_list.innerHTML="No record found";
+            document.getElementById("c2").style.visibility="hidden";
+            return;
+        }
+        
+        let table_temp = document.createElement("table");
+        table_temp.setAttribute("id", "list_phone");
+
+        table_temp.innerHTML =
+          "<tr> \
+            <th>Id</th> \
+            <th>Name</th> \
+            <th>Phone</th> \
+            <th>Email</th> \
+          </tr>";
+
+        let alist = document.createElement("tr");
+        alist.setAttribute("class", "ltr");
+        alist.innerHTML = `<tr> \
+                            <td>${data[0].id}</td> \
+                            <td>${data[0].name}</td> \
+                            <td>${data[0].phone}</td> \
+                            <td>${data[0].email}</td> \
+                           </tr>`;
+        table_temp.appendChild(alist);
+        game_list.appendChild(table_temp);
+        document.getElementById("c2").style.visibility="visible";
+        ph_old_ = data[0].phone;
+    }
+    async function check_phone(){
+        if (!on_change_phone()){
+            return 0
+        }
+        let phone_temp = document.getElementById("phone").value;
+        request(phone_temp).then((data) => {
+            fill(data.data);
+            });
+    }
+
+    async function update_phone() {
+        let name = document.getElementById("name");
+        let phone = document.getElementById("phone_1");
+        let email = document.getElementById("email");
+      
+        if (!on_change_name() || !on_change_phone() || !on_change_email()) {
+          return 0;
+        }
+        console.log(name.value);
+        console.log(phone.value);
+        console.log(email.value);
+        request_update(name.value, phone.value, email.value,ph_old_).then((data) => {
+                alert("successfully updated");
+                name.value = "";
+                email.value = "";
+                phone.value = "";
+                ph_old_="";
+        });
+ 
+      }
+      async function delete_phone(){
+        request_delete(ph_old_).then((data) => {
+            alert("successfully deleted");
+            ph_old_="";
+    });
+      }
+
+</script>
+<body>
+    <a href="/"><input type="button" value="home" style="margin-left: 80%"/></a>
+    <center>
+        <h1>Phone Number to update or delete </h1>
+        <input type="text" name="phone_field" id="phone" placeholder="Phone number" pattern="^[0-9]{10}$"  onchange="on_change_phone()" required/>
+        <input type="button" value="Check" style="margin-left: 10px;" onclick="check_phone()" id="btnsubmit" />
+    </center>
+    <br><br>
+    <center>
+        <div id="ta_hold"></div>
+    </center>
+
+    <br><br><br>
+        <center id ="c2" style="display:inline-table;margin-left: 44%;width: 14%;visibility: hidden;">
+
+
+            <hr style="color: aliceblue">    
+            <h5>Name</h5>
+            <input type="text" name="name_field" id="name" placeholder="your name" pattern="^[a-zA-Z]+$"
+                onchange="on_change_name()" />
+
+            <h5>Phone Number</h5>
+            <input type="text" name="phone_field" id="phone_1" placeholder="Phone number" pattern="^[0-9]{10}$"
+                onchange="on_change_phone()" />
+    
+            <h5>Email</h5>
+            <input type="text" name="email_field" id="email" placeholder="Email"
+                pattern="^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$" onchange="on_change_email()" />
+            <h5></h5>
+            <input type="button" value="Update" style="margin-left: 10px;" onclick="update_phone()" id="btnsubmit" />
+            <input type="button" value="Delete" style="margin-left: 10px;" onclick="delete_phone()" id="btnsubmit" />
+            <br><br>
+            <hr style="color: aliceblue;">
+        </center>
+
+    
+
+</body>
+</html>

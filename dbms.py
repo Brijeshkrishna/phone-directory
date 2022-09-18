@@ -7,7 +7,7 @@ class database:
         self.cur = self.connect.cursor()
         self.cur.execute(
             """CREATE TABLE IF NOT EXISTS phone_dir(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id INTEGER PRIMARY KEY AUTOINCREMENT ,
                 name TEXT,
                 phone TEXT,
                 email TEXT
@@ -44,7 +44,7 @@ class database:
 
     def delete(self, phone_number: str):
         self.cur.execute(
-            "delete from phone_dir where phone_number = ? ", (phone_number,)
+            "delete from phone_dir where phone = ? ", (phone_number,)
         )
         self.connect.commit()
 
