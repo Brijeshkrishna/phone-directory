@@ -4,21 +4,21 @@ const em_re = new RegExp("^ *[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ *$");
 var ph_old_ = "";
 
 async function request_update(na, ph_new, em, ph_old) {
-	const response = await fetch(`https://phone-dir-prod-temp-f1nlzw.mo2.mogenius.io/api/update/?na=${na}&ph=${ph_new}&em=${em}&with=${ph_old}`, {
+	const response = await fetch(`/api/update/?na=${na}&ph=${ph_new}&em=${em}&with=${ph_old}`, {
 		method: "UPDATE",
 	});
 	return await response.status;
 }
 
 async function request_delete(ph) {
-	const response = await fetch(`https://phone-dir-prod-temp-f1nlzw.mo2.mogenius.io/api/delete/?with=${ph}`, {
+	const response = await fetch(`/api/delete/?with=${ph}`, {
 		method: "DELETE",
 	});
 	return await response.status;
 }
 
 async function request(ph) {
-	const response = await fetch(`https://phone-dir-prod-temp-f1nlzw.mo2.mogenius.io/api/search?ph=${ph}`);
+	const response = await fetch(`/api/search?ph=${ph}`);
 	return await response.json();
 }
 async function on_change_name() {
