@@ -1,0 +1,22 @@
+html {
+    background-color: beige;
+}
+
+input:invalid {
+    border: red solid 2px;
+}
+
+input:valid {
+    border: green solid 2px;
+}
+
+table {
+    width: 60%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    text-align: center;
+}

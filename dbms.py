@@ -1,5 +1,5 @@
 import sqlite3
-
+from typing import Any, List
 
 class database:
     def __init__(self) -> None:
@@ -25,7 +25,6 @@ class database:
         return False
 
     def insert_user(self, name: str, phone: str, email: str) -> None:
-        print(phone)
         if self.check_phone(phone):
             self.cur.execute(
                 """INSERT INTO phone_dir 
@@ -35,25 +34,25 @@ class database:
             )
             self.connect.commit()
 
-    def update_user(self, name: str, phone: str, email: str, previse_phone_number: str):
+    def update_user(
+        self, name: str, phone: str, email: str, previse_phone_number: str
+    ) -> None:
         self.cur.execute(
             "UPDATE phone_dir set name = ? , phone = ?, email = ? where phone = ? ",
             (name, phone, email, previse_phone_number),
         )
         self.connect.commit()
 
-    def delete(self, phone_number: str):
-        self.cur.execute(
-            "delete from phone_dir where phone = ? ", (phone_number,)
-        )
+    def delete(self, phone_number: str) -> None:
+        self.cur.execute("delete from phone_dir where phone = ? ", (phone_number,))
         self.connect.commit()
 
-    def get_user(self, phone: str):
+    def get_user(self, phone: str) -> List[Any]:
         self.cur.execute("""SELECT * FROM phone_dir where phone= ?""", (phone,))
         self.connect.commit()
         return self.cur.fetchone()
 
-    def get_all_users(self):
+    def get_all_users(self) -> List[Any]:
         self.cur.execute("""SELECT * FROM phone_dir  order by id """)
         self.connect.commit()
         return self.cur.fetchall()

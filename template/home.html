@@ -1,58 +1,50 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Phone Directory</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen' href='/static/home.css'>
+        <script src='/static/home.js'></script>
+    </head>
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Phone Directory</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
-    <script src='/static/main.js'></script>
-</head>
-
-<body>
-
-    <a href="/changes"><input type="button" value="view and change" style="margin-left: 80%"/></a>
-    <br><br>
-    <center style="display:inline-table;margin-left: 44%;width: 14%;">
-
-        <h1>Phone directory</h1>
-        <hr style="color: aliceblue">
-
-        <h5>Name</h5>
-        <input type="text" name="name_field" id="name" placeholder="your name" pattern="^[a-zA-Z]+$"
-            onchange="on_change_name()" />
-
-        <h5>Phone Number</h5>
-        <input type="text" name="phone_field" id="phone" placeholder="Phone number" pattern="^[0-9]{10}$"
-            onchange="on_change_phone()" />
-
-        <h5>Email</h5>
-        <input type="text" name="email_field" id="email" placeholder="Email"
-            pattern="^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$" onchange="on_change_email()" />
-        <h5></h5>
-        <input type="button" value="submit" style="margin-left: 10px;" onclick="addPhone()" id="btnsubmit" />
-
+    <body>
+        <a href="/change"><input type="button" value="view and change" style="margin-left: 80%" /></a>
+        <br><br>
+        <center style="display:inline-table;margin-left: 44%;width: 14%;">
+            <h1>Phone directory</h1>
+            <hr style="color: aliceblue">
+            <h5>Name</h5>
+            <input type="text" name="name_field" id="name" placeholder="your name" pattern="^[a-zA-Z]+$"
+                onchange="on_change_name()" />
+            <h5>Phone Number</h5>
+            <input type="text" name="phone_field" id="phone" placeholder="Phone number" pattern="^[0-9]{10}$"
+                onchange="on_change_phone()" />
+            <h5>Email</h5>
+            <input type="text" name="email_field" id="email" placeholder="Email"
+                pattern="^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$" onchange="on_change_email()" />
+            <h5></h5>
+            <input type="button" value="submit" style="margin-left: 10px;" onclick="addPhone()" id="btnsubmit" />
+            <hr style="color: aliceblue;">
+        </center>
+    
         <hr style="color: aliceblue;">
-    </center>
+    
+        <center style="margin-left: 50px;">
+        
+            <button class="refresh" onclick="refresh()">Refresh</button>
+            <br><br><br>
 
-    <hr style="color: aliceblue;">
-
-    <center style="margin-left: 50px;">
-        <button class="refresh" onclick="refresh()">Refresh</button>
-        <br><br><br>
-
-        <table id="list_phone">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-
-            </tr>
-        </table>
-    </center>
-
-</body>
-
+            <table id="list_phone">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </tr>
+            </table>
+        
+        </center>
+    </body>
 </html>
