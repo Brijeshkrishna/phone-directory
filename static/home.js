@@ -5,12 +5,12 @@ const em_re = new RegExp("^ *[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ *$");
 fill();
 
 async function request() {
-	const response = await fetch("/api/getAllRecord");
+	const response = await fetch("https://phone-dir-prod-temp-f1nlzw.mo2.mogenius.io/api/getAllRecord");
 	return await response.json();
 }
 
 async function upload_phone(name, ph, email) {
-	const response = await fetch(`/api/addRecord/?na=${name}&ph=${ph}&em=${email}`, {
+	const response = await fetch(`https://phone-dir-prod-temp-f1nlzw.mo2.mogenius.io/api/addRecord/?na=${name}&ph=${ph}&em=${email}`, {
 		method: "POST",
 	});
 	return await response.status;
