@@ -12,30 +12,33 @@
         <a href="/"><input type="button" value="home" style="margin-left: 80%" /></a>
         <center>
             <h1>Phone Number to update or delete </h1>
-            <input type="text" name="phone_field" id="phone" placeholder="Phone number" pattern="^[0-9]{10}$"
-                onchange="on_change_phone()" required />
+            <input type="text" name="phone_field" id="phone" placeholder="Phone number" pattern="^ *[0-9]{10} *$"  onchange="on_change_phone()" required />
             <input type="button" value="Check" style="margin-left: 10px;" onclick="check_phone()" id="btnsubmit" />
         </center>
+
         <br><br>
         <center>
             <div id="ta_hold"></div>
         </center>
+        
         <br><br><br>
+        
         <center id="c2" style="display:inline-table;margin-left: 44%;width: 14%;visibility: hidden;">
             <hr style="color: aliceblue">
             <h5>Name</h5>
-            <input type="text" name="name_field" id="name" placeholder="your name" pattern="^[a-zA-Z]+$"
-                onchange="on_change_name()" />
-            <h5>Phone Number</h5>
-            <input type="text" name="phone_field" id="phone_1" placeholder="Phone number" pattern="^[0-9]{10}$"
-                onchange="on_change_phone()" />
-            <h5>Email</h5>
-            <input type="text" name="email_field" id="email" placeholder="Email"
-                pattern="^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$" onchange="on_change_email()" />
+            <input type="text" name="name_field" id="name" placeholder="your name" pattern="^ *[a-zA-Z]+ *$"  onchange="on_change_name()" />
+
+                <h5>Phone Number</h5>
+            <input type="text" name="phone_field" id="phone_1" placeholder="Phone number" pattern="^ *[0-9]{10} *$" onchange="on_change_phone()" />
+
+                <h5>Email</h5>
+            <input type="text" name="email_field" id="email" placeholder="Email" pattern="^ *[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+ *$" onchange="on_change_email()" />
             <h5></h5>
+
             <input type="button" value="Update" style="margin-left: 10px;" onclick="update_phone()" id="btnsubmit" />
             <input type="button" value="Delete" style="margin-left: 10px;" onclick="delete_phone()" id="btnsubmit" />
             <br><br>
+
             <hr style="color: aliceblue;">
         </center>
     </body>

@@ -1,6 +1,6 @@
-const na_re = new RegExp("^[a-zA-Z]+$");
-const ph_re = new RegExp("^[0-9]{10}$");
-const em_re = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$");
+const na_re = new RegExp("^ *[a-zA-Z]+ *$");
+const ph_re = new RegExp("^ *[0-9]{10} *$");
+const em_re = new RegExp("^ *[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ *$");
 
 fill();
 
