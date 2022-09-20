@@ -5,20 +5,20 @@ var ph_old_ = "";
 
 async function request_update(na, ph_new, em, ph_old) {
 	const response = await fetch(`/api/update/?na=${na}&ph=${ph_new}&em=${em}&with=${ph_old}`, {
-		method: "UPDATE",
+		method: "POST",
 	});
 	return await response.status;
 }
 
 async function request_delete(ph) {
 	const response = await fetch(`/api/delete/?with=${ph}`, {
-		method: "DELETE",
+		method: "POST",
 	});
 	return await response.status;
 }
 
 async function request(ph) {
-	const response = await fetch(`/api/search?ph=${ph}`);
+	const response = await fetch(`/api/search?ph=${ph}`,{method: "POST"});
 	return await response.json();
 }
 async function on_change_name() {

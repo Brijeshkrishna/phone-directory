@@ -17,7 +17,7 @@ def changes() -> str:
 @app.route("/api/addRecord/", methods=["POST"])
 def addRecord() -> Tuple[Response,int]:
 
-    if request.method == "POST":
+
         name  = request.args.get("na")
         phone = request.args.get("ph")
         email = request.args.get("em")
@@ -33,20 +33,17 @@ def addRecord() -> Tuple[Response,int]:
         else:
             resp = make_response({"success": False, "message": f"Invalid parameters\n{request.args.to_dict()}"}),400
 
-    else:
-        resp = make_response({"success": False, "message": "Method Not Allowed"}),405
 
-    resp[0].headers['Access-Control-Allow-Origin'] = '*'
-    resp[0].headers['mode'] = 'cors'
-    return resp
+        resp[0].headers['Access-Control-Allow-Origin'] = '*'
+        resp[0].headers['mode'] = 'cors'
+        return resp
 
-@app.route("/api/getAllRecord/", methods=["GET"])
+@app.route("/api/getAllRecord/", methods=["POST"])
 def getPhones() -> Tuple[Response,int] :
 
-    if request.method != "GET":
-        resp:Response = make_response({"data": [],"message":"Method Not Allowed "}),405
+   
 
-    else:
+
         rv = []
         record = db.get_all_users()
         if record == None:
@@ -56,11 +53,11 @@ def getPhones() -> Tuple[Response,int] :
             rv.append({"id": i[0], "name": i[1], "phone": i[2], "email": i[3]})
         resp = make_response({"data": rv,"message":""}),200
     
-    resp[0].headers['Access-Control-Allow-Origin'] = '*'
-    resp[0].headers['mode'] = 'cors'
-    return resp
+        resp[0].headers['Access-Control-Allow-Origin'] = '*'
+        resp[0].headers['mode'] = 'cors'
+        return resp
 
-@app.route("/api/search/", methods=["GET"])
+@app.route("/api/search/", methods=["POST"])
 def search() -> Tuple[Response,int] :
 
     ph = request.args.get("ph")
@@ -80,10 +77,10 @@ def search() -> Tuple[Response,int] :
     resp[0].headers['mode'] = 'cors'
     return resp
 
-@app.route("/api/update/", methods=["UPDATE"])
+@app.route("/api/update/", methods=["POST"])
 def update_record() -> Tuple[Response,int] :
        
-    if request.method == "UPDATE":
+
         name  = request.args.get("na")
         phone = request.args.get("ph")
         email = request.args.get("em")
@@ -99,18 +96,17 @@ def update_record() -> Tuple[Response,int] :
             resp =  make_response({"success": True,"message":"Updated Successfully"}), 200
         else:
             resp = make_response({"success": False, "message":f"Invalid parameters \n{request.args.to_dict()}"}), 400
-    else:
-        resp = make_response({"success": False, "message": "Method Not Allowed"}),405
-
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['mode'] = 'cors'
-    return resp
 
 
-@app.route("/api/delete/", methods=["DELETE"])
+        resp[0].headers['Access-Control-Allow-Origin'] = '*'
+        resp[0].headers['mode'] = 'cors'
+        return resp
+
+
+@app.route("/api/delete/", methods=["POST"])
 def delete_record() -> Tuple[Response,int] :
 
-    if request.method == "DELETE":
+  
         ph_old = request.args.get("with")
         
         ph_old = ph_old.strip() if ph_old!= None else ph_old
@@ -120,9 +116,8 @@ def delete_record() -> Tuple[Response,int] :
             resp =  make_response({"success": True,"message":"Updated Successfully"}), 200
         else:
             resp = make_response({"success": False, "message":f"Invalid parameters \n{request.args.to_dict()}"}), 400
-    else:
-        resp = make_response({"success": False, "message": "Method Not Allowed"}),405
+  
 
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['mode'] = 'cors'
-    return resp
+        resp[0].headers['Access-Control-Allow-Origin'] = '*'
+        resp[0].headers['mode'] = 'cors'
+        return resp

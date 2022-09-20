@@ -5,7 +5,7 @@ const em_re = new RegExp("^ *[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ *$");
 fill();
 
 async function request() {
-	const response = await fetch("/api/getAllRecord");
+	const response = await fetch("/api/getAllRecord",{method: "POST"});
 	return await response.json();
 }
 
